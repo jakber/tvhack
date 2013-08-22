@@ -3,16 +3,25 @@ var app = express();
 app.use(express.logger());
 
 app.get('/', function(request, response) {
-  response.send('Hello Jocke!');
+  var sql = request.query.sql;
+  
 	var pg = require('pg');
-	var sql = request.sql;
+	
+  console.log('db:' + process.env.DATABASE_URL);
+
 	pg.connect(process.env.DATABASE_URL, function(err, client, done) {
-  		client.query(sql, function(err, result) {
+  		if(err)
+        console.error(err);
+
+      client.query("SELECT * from jocke", function(err, result) {
     			done();
     			if(err) return console.error(err);
     			console.log(result.rows);
   		});
 	});
+
+  response.send('Hello Jocke!' + sql);
+
 });
 
 var port = process.env.PORT || 5000;
