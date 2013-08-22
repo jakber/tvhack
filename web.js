@@ -16,7 +16,7 @@ app.get('/', function(request, response) {
       client.query("SELECT * from jocke", function(err, result) {
     			done();
     			if(err) return console.error(err);
-    			response.send('hello ' + result.rows[0].name));
+    			response.send('hello ' + result.rows[0].name);
   		});
 	});
 
