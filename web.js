@@ -4,6 +4,8 @@ var express = require("express");
 var pg = require('pg');
 var async = require('async');
 var app = express();
+var server = require('http').createServer(app)
+var io = require('socket.io').listen(server);
 app.use(express.logger());
 app.use(express.bodyParser());
 app.use(express.cookieParser());
@@ -14,7 +16,6 @@ app.get('/', function(req,res){
 });
 
 app.get('/impression', function(request, response) {
-    var sql = request.query.sql;
     console.log('db:' + process.env.DATABASE_URL);
     pg.connect(process.env.DATABASE_URL, function(err, client, done) {
         if(err)
@@ -24,6 +25,20 @@ app.get('/impression', function(request, response) {
             done();
             if(err) return console.error(err);
             response.send(result.rows);
+        });
+    });
+});
+
+app.get('/watch', function(request, response) {
+    console.log('db:' + process.env.DATABASE_URL);
+    pg.connect(process.env.DATABASE_URL, function(err, client, done) {
+        if(err)
+            console.error(err);
+
+        client.query("SELECT count(*) c, url from impression JOIN video ON video.id=impression.video GROUP BY url ORDER BY c DESC", function(err, result) {
+            done();
+            if(err) return console.error(err);
+            response.redirect(result.rows[0].url);
         });
     });
 });
@@ -95,3 +110,18 @@ function createUUID() {
     var uuid = s.join("");
     return uuid;
 }
+
+var sockets = {};
+io.sockets.on("connection", function(socket) {
+    socket.on("set user", function(viewerId) {
+        sockets[viewerId] = socket;
+    })
+});
+
+
+app.post('/next', function(request, response) {
+    var viewerId = request.body.viewerId;
+    if (sockets[viewerId]) 
+        sockets[viewerId].emit("next");
+    response.send({result:"ok"});
+});
