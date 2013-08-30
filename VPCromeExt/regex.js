@@ -1,7 +1,7 @@
 function getSite(url){
 
 	var sites = new Array( 
-			/.*(youtube.com)\/([a-z0-9]+)/,  
+			/.*(youtube.com)\/.*?.*v=([a-z0-9]+).*/,  
 			/.*(svtplay.se)\/video\/([a-z0-9]+)\/.*/,
 			/.*(tv4play.se)\/program\/.*\?video_id=([a-z0-9]+)/
 		);
