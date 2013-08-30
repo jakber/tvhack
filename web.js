@@ -7,6 +7,12 @@ var app = express();
 app.use(express.logger());
 app.use(express.bodyParser());
 app.use(express.cookieParser());
+app.use(express.static(__dirname + '/public'));
+
+app.get('/', function(req,res){
+    res.sendfile(__dirname + '/index.html');
+});
+
 app.get('/impression', function(request, response) {
     var sql = request.query.sql;
     console.log('db:' + process.env.DATABASE_URL);
@@ -21,7 +27,6 @@ app.get('/impression', function(request, response) {
         });
     });
 });
-
 
 app.post('/impression', function(request, response) {
     var url = request.body.url;
