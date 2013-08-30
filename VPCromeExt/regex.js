@@ -12,7 +12,7 @@ function getSite(url){
 		if(match){
 			var domain = match[1];
 			var name = match[2];					
-			alert("match! domain = " + domain + ", id = " + name);
+//			alert("match! domain = " + domain + ", id = " + name);
 			return {site: match[1], contentId: match[2]};
 		}				
 	}

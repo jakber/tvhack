@@ -6,6 +6,12 @@ var async = require('async');
 var app = express();
 var server = require('http').createServer(app)
 var io = require('socket.io').listen(server);
+
+io.configure(function () { //Heroku "doesn't support" websockets on the Cedar stack yet
+    io.set("transports", ["xhr-polling"]);
+    io.set("polling duration", 10);
+});
+
 app.use(express.logger());
 app.use(express.bodyParser());
 app.use(express.cookieParser());

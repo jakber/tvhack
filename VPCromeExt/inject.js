@@ -6,7 +6,6 @@ if (typeof String.prototype.startsWith != 'function') {
 
 var serverUrl = "http://sleepy-wave-6767.herokuapp.com/";
 var url = document.URL;
-var siteIndex = undefined;
 
 // impression
 var test = {
@@ -24,7 +23,7 @@ var test = {
 
 
 function post(data, path, callback){
-    console.log("testpost");
+    console.log("post: " + path);
     $.ajax({
         url: serverUrl + "/" + path,
         data: JSON.stringify(data),
@@ -40,32 +39,45 @@ function post(data, path, callback){
             callback();
         }
     });
+}function get(path, callback){
+    console.log("get: " + path);
+    $.ajax({
+        url: serverUrl + "/" + path,
+        type : 'GET',
+        success: function(responseData){
+            callback(responseData);
+        },
+        failure: function(errMsg) {
+            alert("error");
+            console.log("errMsg: " + errMsg);
+            callback();
+        }
+    });
 }
 
 //
 //if(url.startsWith("http://www.svtplay.se/video/")){
 //    siteIndex = 1;
 //}
+var socket = io.connect(serverUrl);
+
+socket.on('next', function (data) {
+    console.log("next");
+    console.log(data);
+});
 
 $(document).ready(function() {
     var site = getSite(url);
     if (site) {
-        alert(site);
+        console.log("found site: " + site);
         post({url:url}, "impression", function(response){
             console.log("tracked: ");
             console.log(response);
-            var socket = io.connect(serverUrl);
-            socket.emit("set user", data.viewerId);
-            socket.on('next', function (data) {
-                console.log("next");
-                console.log(data);
-                
+            get("whoAmI", function(me){
+                socket.emit("set user", me.id);
             });
-        });
-    }
-    if (siteIndex){
-        alert("found site");
 
+        });
     }
 });
 
