@@ -21,6 +21,7 @@
         "default_popup": "popup.html"
     },
     "permissions": [
+        "http://sleepy-wave-6767.herokuapp.com/",
         "https://secure.flickr.com/"
     ]
 }

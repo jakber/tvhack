@@ -4,8 +4,6 @@ if (typeof String.prototype.startsWith != 'function') {
     };
 }
 
-
-
 var serverUrl = "http://sleepy-wave-6767.herokuapp.com/";
 var url = document.URL;
 var siteIndex = undefined;
@@ -26,16 +24,19 @@ var test = {
 
 
 function post(data, path, callback){
-    $.ajax(url, {
-        url: "/" + path,
+    console.log("testpost");
+    $.ajax({
+        url: serverUrl + "/" + path,
         data: JSON.stringify(data),
         contentType: "application/json; charset=utf-8",
         dataType: "json",
-        success: function(resonceData){
-            callback();
+        type : 'POST',
+        success: function(responseData){
+            callback(responseData);
         },
         failure: function(errMsg) {
-            alert(errMsg);
+            alert("error");
+            console.log("errMsg: " + errMsg);
             callback();
         }
     });
@@ -50,6 +51,10 @@ $(document).ready(function() {
     var site = getSite(url);
     if (site) {
         alert(site);
+        post({url:url}, "impression", function(response){
+            console.log("tracked: ");
+            console.log(response);
+        });
     }
     if (siteIndex){
         alert("found site");
