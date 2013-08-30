@@ -2,8 +2,9 @@
   "name": "node-example",
   "version": "0.0.1",
   "dependencies": {
-    	"pg": "2.x",
-	"express": "3.1.x"
+    "pg": "2.x",
+    "express": "3.1.x",
+    "async": "0.2.9"
   },
   "engines": {
     "node": "0.10.x",
