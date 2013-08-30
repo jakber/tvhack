@@ -29,6 +29,16 @@ app.get('/impression', function(request, response) {
     });
 });
 
+app.get('/whoami', function(request, response) {
+    var viewerId = request.cookies.viewer;
+    pg.connect(process.env.DATABASE_URL, function(err, client, done) {
+        getOrCreateViewer(client, viewerId, function(err, viewer) {
+            console.log(viewer);
+            response.send(viewer);
+        });
+    });
+});
+
 app.get('/watch', function(request, response) {
     console.log('db:' + process.env.DATABASE_URL);
     pg.connect(process.env.DATABASE_URL, function(err, client, done) {
@@ -51,18 +61,7 @@ app.post('/impression', function(request, response) {
             console.error(err);
 
         async.parallel({
-            viewer: function(callback) {
-                if (!viewer) {
-                    createViewer(client, createUUID(), callback);
-                } else {
-                    client.query("SELECT id,token FROM viewer WHERE token=$1", [viewer], function(err, result) {
-                        if (result.rows.length == 0) 
-                            createViewer(client, createUUID(), callback);
-                        else
-                            callback(null, result.rows[0]);
-                    });
-                }
-            },
+            viewer: function(callback) { getOrCreateViewer(client, viewer, callback) },
             video: function(callback) {
                 client.query("SELECT id FROM video WHERE url=$1", [url], function(err, result) {
                     if (result.rows.length == 0) 
@@ -110,6 +109,20 @@ function createUUID() {
     var uuid = s.join("");
     return uuid;
 }
+
+function getOrCreateViewer(client, viewer, callback) {
+    if (!viewer) {
+        createViewer(client, createUUID(), callback);
+    } else {
+        client.query("SELECT id,token FROM viewer WHERE token=$1", [viewer], function(err, result) {
+            if (result.rows.length == 0) 
+                createViewer(client, createUUID(), callback);
+            else
+                callback(null, result.rows[0]);
+        });
+    }
+}
+
 
 var sockets = {};
 io.sockets.on("connection", function(socket) {
