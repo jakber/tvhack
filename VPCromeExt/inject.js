@@ -54,6 +54,13 @@ $(document).ready(function() {
         post({url:url}, "impression", function(response){
             console.log("tracked: ");
             console.log(response);
+            var socket = io.connect(serverUrl);
+            socket.emit("set user", data.viewerId);
+            socket.on('next', function (data) {
+                console.log("next");
+                console.log(data);
+                
+            });
         });
     }
     if (siteIndex){

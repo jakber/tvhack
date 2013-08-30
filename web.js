@@ -85,7 +85,7 @@ app.post('/impression', function(request, response) {
 
 
 var port = process.env.PORT || 5000;
-app.listen(port, function() {
+server.listen(port, function() {
     console.log("Listening on " + port);
 });
 
@@ -113,6 +113,7 @@ function createUUID() {
 
 var sockets = {};
 io.sockets.on("connection", function(socket) {
+    console.log("connected");
     socket.on("set user", function(viewerId) {
         sockets[viewerId] = socket;
     })
