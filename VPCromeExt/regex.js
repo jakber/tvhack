@@ -1,9 +1,9 @@
 function getSite(url){
 
 	var sites = new Array( 
-			/.*(youtube.com)\/.*?.*v=([a-z0-9]+).*/,  
+			/.*(youtube.com)\/.*v=([A-Za-z0-9_]+).*/,  
 			/.*(svtplay.se)\/video\/([a-z0-9]+)\/.*/,
-			/.*(tv4play.se)\/program\/.*\?video_id=([a-z0-9]+)/
+			/.*(tv4play.se)\/program\/.*\?video_id=([a-z0-9]+).*/
 		);
 
 	for(var i in sites){	
