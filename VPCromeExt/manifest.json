@@ -8,9 +8,10 @@
     "content_scripts": [
         {
 //            "matches": ["https://www.google.se/*"],
-            "matches": ["*://*/*"],
+//            "matches": ["*://*/*"],
 //            "css": ["mystyles.css"],
-            "js": ["inject.js"],
+            "matches": ["http://www.svtplay.se/*", "http://www.youtube.com/*", "http://www.tv4play.se/*"],
+            "js": ["jquery-2.0.3.js","regex.js","inject.js"],
             "run_at" : "document_start"
         }
     ],

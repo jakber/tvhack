@@ -1,5 +1,6 @@
 //Jesper was here.
 var express = require("express");
+
 var app = express();
 app.use(express.logger());
 
@@ -28,3 +29,6 @@ app.listen(port, function() {
   console.log("Listening on " + port);
 });
 
+
+
+//export DATABASE_URL=postgresql://localhost/postgres
