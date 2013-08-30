@@ -1,0 +1,43 @@
+# the pitch
+## v 0.1
+### TLDR:
+Nextflix brings that 80's zapping experience to the new TV.
+
+### Longer version
+with the new TV we are in total control. What to watch when, becomes whatever whenever. But while at first the experience feels like freedom, actually watching anything becomes a chore because you have to ~~do all kinds of stuff and~~ make all kinds of decisions that stand in the way of the actual watching experience.
+
+# features
+## extension
+* start session
+
+## remote
+* go to next
+* list next 10
+	* jump to one of them
+* up-vote current
+* down-vote current
+
+You scan the QR code with your phone, it then takes you to the unique URL that pairs your phone to your NEXT browser session.
+
+
+
+
+# useful links
+
+#### gesture recognition
+Control the app through hand gestures
+
+* [Reveal.js](https://github.com/willy-vvu/reveal.js)
+
+#### touch gestures
+Control the app remote with touch gestures. The idea is to be able to control the flow without looking.
+
+* [Hammer.js](http://eightmedia.github.io/hammer.js/)
+
+#### Keyboard shortcuts
+
+* [mousetrap](http://craig.is/killing/mice)
+* [keymaster.js](https://github.com/madrobby/keymaster)
+
+#### QR code
+* [QRCode.js](http://davidshimjs.github.io/qrcodejs/)
