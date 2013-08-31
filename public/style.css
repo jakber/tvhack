@@ -32,5 +32,9 @@ body {
 }
 
 div#remote {
-    visibility: hidden; /*start with remote hidden*/
+    display: none; /*start with remote hidden*/
+}
+
+div#next-button {
+    background-color: ff0000;
 }

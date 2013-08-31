@@ -1,17 +1,14 @@
 {
     "manifest_version": 2,
 
-    "name": "Videoplaza Kittens",
-    "description": "This extension demonstrates a 'browser action' with kittens.",
+    "name": "NEXTflix",
+    "description": "This extension enables relaxed TV watching.",
     "version": "0.1",
 
     "content_scripts": [
         {
-//            "matches": ["https://www.google.se/*"],
-//            "matches": ["*://*/*"],
-//            "css": ["mystyles.css"],
             "matches": ["http://www.svtplay.se/*", "http://www.youtube.com/*", "http://www.tv4play.se/*"],
-            "js": ["jquery-2.0.3.js","socket.io.min.js","regex.js","inject.js"],
+            "js": ["jquery-2.0.3.js","socket.io.min.js", "shared.js", "controls.js", "regex.js","inject.js"],
             "run_at" : "document_start"
         }
     ],
