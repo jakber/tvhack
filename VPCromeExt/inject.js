@@ -55,10 +55,6 @@ function post(data, path, callback){
     });
 }
 
-//
-//if(url.startsWith("http://www.svtplay.se/video/")){
-//    siteIndex = 1;
-//}
 var socket = io.connect(serverUrl);
 
 socket.on('next', function (data) {
@@ -74,6 +70,7 @@ $(document).ready(function() {
         post({url:url}, "impression", function(response){
             console.log("tracked: ");
             console.log(response);
+
             get("whoami", function(me){
                 console.log("me");
                 console.log(me);
