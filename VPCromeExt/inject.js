@@ -64,6 +64,7 @@ var socket = io.connect(serverUrl);
 socket.on('next', function (data) {
     console.log("next");
     console.log(data);
+    window.location = serverUrl + "watch";
 });
 
 $(document).ready(function() {
@@ -73,13 +74,12 @@ $(document).ready(function() {
         post({url:url}, "impression", function(response){
             console.log("tracked: ");
             console.log(response);
-            get("whoAmI", function(me){
+            get("whoami", function(me){
+                console.log("me");
+                console.log(me);
                 socket.emit("set user", me.id);
             });
 
         });
     }
 });
-
-
-
