@@ -4,8 +4,33 @@ var yourId;
 
 $(document).ready(function() {
 
+    var remoteButton = $("#remote-button");
+    remoteButton.bind( "touchstart", function(e){
+        remoteButton.addClass("active");
+    });
 
-    $("#remote-button").click(function(){
+    remoteButton.bind( "touchend", function(e){
+        remoteButton.removeClass("active");
+        $.ajax({
+            url: serverUrl + "/next",
+            data: JSON.stringify({viewerId: yourId}),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            type : 'POST',
+            success: function(responseData){
+                callback(responseData);
+            },
+            failure: function(errMsg) {
+                alert("error");
+                console.log("errMsg: " + errMsg);
+                callback();
+            }
+        });
+    });
+
+    var remoteButton = $("#remote-button").click(function(){
+
+
         $.ajax({
                 url: serverUrl + "/next",
                 data: JSON.stringify({viewerId: yourId}),
