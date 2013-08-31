@@ -148,6 +148,13 @@ io.sockets.on("connection", function(socket) {
     socket.on("set user", function(viewerId) {
         sockets[viewerId] = socket;
     })
+    socket.on('disconnect', function () {
+        console.log("disconnect event");
+        for (viewerId in sockets) {
+            console.log("viewer " + viewerId + " disconnected.");
+            if (sockets[viewerId] == socket) sockets[viewerId] = null;
+        }
+    });
 });
 
 
