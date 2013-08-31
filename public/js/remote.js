@@ -13,12 +13,10 @@ $(document).ready(function() {
                 dataType: "json",
                 type : 'POST',
                 success: function(responseData){
-                    callback(responseData);
+                    console.log("success", responseData);
                 },
                 failure: function(errMsg) {
-                    alert("error");
-                    console.log("errMsg: " + errMsg);
-                    callback();
+                    console.log("failure", errMsg);
                 }
             });
     });
