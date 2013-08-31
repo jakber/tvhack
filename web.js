@@ -55,7 +55,7 @@ app.get('/watch', function(request, response) {
                 console.error(err);
 
 
-            response.cookie("viewer", results.token);
+            response.cookie("viewer", viewer.token);
             client.query("SELECT count(*) c, url from impression JOIN video ON video.id=impression.video and video.id NOT IN (SELECT video FROM impression WHERE viewer = $1) GROUP BY url ORDER BY c DESC;", [viewer.id], function(err, result) {
                 done();
                 if(err) return console.error(err);
