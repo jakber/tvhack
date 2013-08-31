@@ -18,32 +18,12 @@ $(document).ready(function() {
             dataType: "json",
             type : 'POST',
             success: function(responseData){
-                callback(responseData);
+                console.log("success", responseData);
             },
             failure: function(errMsg) {
-                alert("error");
-                console.log("errMsg: " + errMsg);
-                callback();
+                console.log("failure", errMsg);
             }
         });
-    });
-
-    var remoteButton = $("#remote-button").click(function(){
-
-
-        $.ajax({
-                url: serverUrl + "/next",
-                data: JSON.stringify({viewerId: yourId}),
-                contentType: "application/json; charset=utf-8",
-                dataType: "json",
-                type : 'POST',
-                success: function(responseData){
-                    console.log("success", responseData);
-                },
-                failure: function(errMsg) {
-                    console.log("failure", errMsg);
-                }
-            });
     });
 
     console.log("page loaded");
