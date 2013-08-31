@@ -66,7 +66,7 @@ socket.on('next', function (data) {
 $(document).ready(function() {
     var site = getSite(url);
     if (site) {
-        console.log("found site: " + site);
+        console.log("found site: ", site);
         post({url:url}, "impression", function(response){
             console.log("tracked: ");
             console.log(response);
