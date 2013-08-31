@@ -46,15 +46,25 @@ app.get('/whoami', function(request, response) {
 });
 
 app.get('/watch', function(request, response) {
+    
+
+
     console.log('db:' + process.env.DATABASE_URL);
     pg.connect(process.env.DATABASE_URL, function(err, client, done) {
-        if(err)
-            console.error(err);
+        var viewerCookie = request.cookies.viewer;
+        getOrCreateViewer(client, viewerCookie, function(err, viewer){
+            if(err)
+                console.error(err);
 
-        client.query("SELECT count(*) c, url from impression JOIN video ON video.id=impression.video GROUP BY url ORDER BY c DESC", function(err, result) {
-            done();
-            if(err) return console.error(err);
-            response.redirect(result.rows[0].url);
+            client.query("SELECT count(*) c, url from impression JOIN video ON video.id=impression.video and video.id NOT IN (SELECT video FROM impression WHERE viewer = $1) GROUP BY url ORDER BY c DESC;", [viewer.id], function(err, result) {
+                done();
+                if(err) return console.error(err);
+                if(result.rows.length == 0){
+                    response.redirect("http://slutet.se/");
+                } else {
+                    response.redirect(result.rows[0].url);    
+                }
+            });
         });
     });
 });
@@ -68,8 +78,7 @@ app.post('/impression', function(request, response) {
 
         async.parallel({
             viewer: function(callback) { getOrCreateViewer(client, viewer, callback) },
-            video: function(callback) {
-            }
+            video: function(callback) {getOrCreateVideo(client, url, callback) }
         }, function(err, results) {
             var query = client.query("INSERT INTO impression(viewer, video, created) VALUES($1, $2, NOW()) RETURNING id", [results.viewer.id, results.video.id], function(err, result) {
                 done();
@@ -121,7 +130,7 @@ function getOrCreateViewer(client, viewer, callback) {
     }
 }
 
-function getOrCreateVideo(client, viewer, callback) {
+function getOrCreateVideo(client, url, callback) {
     client.query("SELECT id FROM video WHERE url=$1", [url], function(err, result) {
         if (result.rows.length == 0) 
             client.query("INSERT INTO video(url) VALUES($1) RETURNING id", [url], function(err, result) {
