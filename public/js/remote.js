@@ -5,7 +5,7 @@ var yourId;
 $(document).ready(function() {
 
 
-    $("#next-button").click(function(){
+    $("#remote-button").click(function(){
         $.ajax({
                 url: serverUrl + "/next",
                 data: JSON.stringify({viewerId: yourId}),
