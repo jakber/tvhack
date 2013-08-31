@@ -9,20 +9,26 @@ body {
 }
 
 #login {
-    background: transparent url(img/NEXTflix-logo.png) no-repeat center 35px;
     height: 600px;
-    padding-top: 420px;
+}
+
+#login img {
+    margin: 25px 0 15px;
+    width: 127px;
+    height: 166px;
 }
 
 #help {
-    margin-top: 50px;
+    margin-top: 25px;
     font-family: Helvetica;
     font-size: 15px;
     color: #BABABA;
 }
 
 #help img {
-    margin-top: 30px;
+    margin-top: 15px;
+    width: 133px;
+    height: 149;
 }
 
 div#remote {
