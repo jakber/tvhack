@@ -40,7 +40,7 @@ app.get('/whoami', function(request, response) {
     pg.connect(process.env.DATABASE_URL, function(err, client, done) {
         getOrCreateViewer(client, viewerId, function(err, viewer) {
             console.log(viewer);
-            response.cookie("viewer", results.viewer.token);
+            response.cookie("viewer", viewer.token);
             response.send(viewer);
         });
     });
@@ -55,7 +55,7 @@ app.get('/watch', function(request, response) {
                 console.error(err);
 
 
-            response.cookie("viewer", results.viewer.token);
+            response.cookie("viewer", results.token);
             client.query("SELECT count(*) c, url from impression JOIN video ON video.id=impression.video and video.id NOT IN (SELECT video FROM impression WHERE viewer = $1) GROUP BY url ORDER BY c DESC;", [viewer.id], function(err, result) {
                 done();
                 if(err) return console.error(err);
