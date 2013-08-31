@@ -19,6 +19,7 @@
     },
     "permissions": [
         "http://sleepy-wave-6767.herokuapp.com/",
-        "https://secure.flickr.com/"
+        "https://secure.flickr.com/",
+        "http://localhost:5000/"
     ]
 }

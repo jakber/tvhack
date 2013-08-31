@@ -39,6 +39,7 @@ app.get('/whoami', function(request, response) {
     var viewerId = request.cookies.viewer;
     pg.connect(process.env.DATABASE_URL, function(err, client, done) {
         getOrCreateViewer(client, viewerId, function(err, viewer) {
+            done();
             console.log(viewer);
             response.cookie("viewer", viewer.token);
             response.send(viewer);

@@ -1,4 +1,5 @@
 var serverUrl = "http://sleepy-wave-6767.herokuapp.com/";
+//var serverUrl = "http://localhost:5000";
 
 function post(data, path, callback){
     console.log("post: " + path);
@@ -20,7 +21,7 @@ function post(data, path, callback){
 }
 
 function get(path, callback){
-    console.log("get: " + path);
+    console.log("get: " + serverUrl + "/" + path);
     $.ajax({
         url: serverUrl + "/" + path,
         type : 'GET',
