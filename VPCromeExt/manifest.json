@@ -11,7 +11,7 @@
 //            "matches": ["*://*/*"],
 //            "css": ["mystyles.css"],
             "matches": ["http://www.svtplay.se/*", "http://www.youtube.com/*", "http://www.tv4play.se/*"],
-            "js": ["jquery-2.0.3.js","socket.io.min.js","regex.js","inject.js"],
+            "js": ["jquery-2.0.3.js","socket.io.min.js", "shared.js", "controls.js", "regex.js","inject.js"],
             "run_at" : "document_start"
         }
     ],
