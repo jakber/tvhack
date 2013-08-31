@@ -1,8 +1,27 @@
 
-
+var serverUrl = "http://sleepy-wave-6767.herokuapp.com";
 var yourId;
 
 $(document).ready(function() {
+
+
+    $("#next-button").click(function(){
+        $.ajax({
+                url: serverUrl + "/next",
+                data: JSON.stringify({viewerId: yourId}),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                type : 'POST',
+                success: function(responseData){
+                    callback(responseData);
+                },
+                failure: function(errMsg) {
+                    alert("error");
+                    console.log("errMsg: " + errMsg);
+                    callback();
+                }
+            });
+    });
 
     console.log("page loaded");
 
@@ -13,6 +32,7 @@ $(document).ready(function() {
         console.log("your id: " + yourId);
         if (yourId){
             $("#login").hide();
+            $("#remote").show();
         }
         // not Submitting anything now
 //        console.log("connect remote");
