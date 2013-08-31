@@ -61,12 +61,14 @@ div#remote {
     margin-top: 30px;
 }
 
-.intro {
-    position: relative;
-}
-
 .Absolute-Center {
   margin: auto;
   position: absolute;
   top: 0; left: 0; bottom: 0; right: 0;
+}
+
+.intro a {
+    color: white;
+    font-family: Helvetica, Arial;
+    line-height: 30px;
 }
