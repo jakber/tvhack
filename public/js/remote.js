@@ -1,17 +1,32 @@
 
-// this is the id of the submit button
-$("#submitButtonId").click(function() {
-    var url = "path/to/your/script.php"; // the script where you handle the form input.
 
-    $.ajax({
-        type: "POST",
-        url: url,
-        data: $("#idForm").serialize(), // serializes the form's elements.
-        success: function(data)
-        {
-            alert(data); // show response from the php script.
+var yourId;
+
+$(document).ready(function() {
+
+    console.log("page loaded");
+
+    // this is the id of the submit button
+    $("#connect").click(function() {
+
+        yourId = $("#connectCode").val();
+        console.log("your id: " + yourId);
+        if (yourId){
+            $("#login").hide();
         }
-    });
+        // not Submitting anything now
+//        console.log("connect remote");
+////        var url = "path/to/your/script.php";
+//        $.ajax({
+//            type: "POST",
+//            url: "/connect/",
+//            data: $("#connectForm").serialize(),
+//            success: function(data)
+//            {
+//                alert(data);
+//            }
+//        });
 
-    return false; // avoid to execute the actual submit of the form.
+        return false; // avoid to execute the actual submit of the form.
+    });
 });

@@ -24,3 +24,7 @@ body {
 #help img {
     margin-top: 30px;
 }
+
+div#remote {
+    visibility: hidden; /*start with remote hidden*/
+}
