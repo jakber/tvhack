@@ -28,7 +28,7 @@ body {
 #help img {
     margin-top: 15px;
     width: 133px;
-    height: 149;
+    height: 149px;
 }
 
 div#remote {
@@ -36,5 +36,5 @@ div#remote {
 }
 
 div#next-button {
-    background-color: ff0000;
+    
 }
