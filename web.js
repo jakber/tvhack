@@ -63,14 +63,6 @@ app.post('/impression', function(request, response) {
         async.parallel({
             viewer: function(callback) { getOrCreateViewer(client, viewer, callback) },
             video: function(callback) {
-                client.query("SELECT id FROM video WHERE url=$1", [url], function(err, result) {
-                    if (result.rows.length == 0) 
-                        client.query("INSERT INTO video(url) VALUES($1) RETURNING id", [url], function(err, result) {
-                            callback(null, result.rows[0]);
-                        });
-                    else
-                        callback(null, result.rows[0]);
-                });
             }
         }, function(err, results) {
             var query = client.query("INSERT INTO impression(viewer, video, created) VALUES($1, $2, NOW()) RETURNING id", [results.viewer.id, results.video.id], function(err, result) {
@@ -123,6 +115,16 @@ function getOrCreateViewer(client, viewer, callback) {
     }
 }
 
+function getOrCreateVideo(client, viewer, callback) {
+    client.query("SELECT id FROM video WHERE url=$1", [url], function(err, result) {
+        if (result.rows.length == 0) 
+            client.query("INSERT INTO video(url) VALUES($1) RETURNING id", [url], function(err, result) {
+                callback(null, result.rows[0]);
+            });
+        else
+            callback(null, result.rows[0]);
+    });
+}
 
 var sockets = {};
 io.sockets.on("connection", function(socket) {
