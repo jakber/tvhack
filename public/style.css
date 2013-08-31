@@ -35,11 +35,6 @@ div#remote {
     display: none; /*start with remote hidden*/
 }
 
-#next-button {
-    width: 327px;
-    height: 420px;
-}
-
 #remote-button {
     margin: 0 auto;
     width: 310px;
