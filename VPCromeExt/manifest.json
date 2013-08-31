@@ -14,7 +14,10 @@
     ],
 
     "browser_action": {
-        "default_icon": "icon.png",
+        "default_icon": {
+              "19": "images/chrome-tiny.png",
+              "38": "images/chrome-big.png"
+            },
         "default_popup": "popup.html"
     },
     "permissions": [
